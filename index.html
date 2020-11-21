@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    
+    
+    let gameOptions = ["rock", "paper", "scissors"]
+    
+    function computerPlay() {
+      let optionNum = Math.floor(Math.random() * 3);
+      return gameOptions[optionNum];
+    }
+
+    function playerPlay() {
+      let playerOption = prompt('rock, paper or scissors?', '');
+      playerOption.toLowerCase();
+      return playerOption == "rock" ? gameOptions[0]
+            : playerOption == "paper" ? gameOptions[1]
+            : playerOption == "scissors" ? gameOptions[2]
+            : alert("Sorry, I didn't get that");
+    }
+
+    function gameRound() {
+      let playerHand = playerPlay();
+      let computerHand = computerPlay();
+       if (playerHand.length == computerHand.length) {
+         alert("draw again");
+       } else if (playerHand.length > computerHand.length && computerHand.length !== 4) {
+         alert("You win!!, scissors beat paper");
+       } else if (computerHand.length === 4 && playerHand.length != 5) {
+         alert("You lose!!, rock beats scissors");
+       } else if (playerHand.length === 5 && computerHand.length !== 8) {
+         alert("You win!!, paper beat rock");
+       } else if (playerHand.length === 5 && computerHand.length === 8) {
+         alert("You lose!!, scissors beat paper");
+       } else if (playerHand.length === 4 && computerHand.length === 8) {
+         alert("You win!!, rock beats scissors")
+       } else if (playerHand.length === 4 && computerHand.length !== 8) {
+         alert("You lose!!, paper beats rock")
+       } else {
+         alert("Sorry, I don't know what's wrong");
+       }
+    }
+
+  
+
+  
+
+  </script>
+</body>
+</html>
