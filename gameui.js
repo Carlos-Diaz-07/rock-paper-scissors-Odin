@@ -1,13 +1,15 @@
 const startBtn = document.querySelector("#start-btn");
 const btnContainer = document.querySelector(".btn-container");
-const btnList = document.querySelectorAll(".btn-container");
 const roundDisplay = document.querySelector("#round-display");
+const roundWinnerDisplay = document.querySelector("#round-winner-display");
 const winnerDisplay = document.querySelector("#winner-display");
 const pcHand = document.querySelector("#pc-hand");
 const gameOptions = ["rock", "paper", "scissors"];
+const scoreBoard = document.querySelector("#score");
 let playerWins = 0;
 let computerWins = 0;
 let draw = 0;
+let totalPlayerWins = 0;
 
 function computerPlay() {
 	let optionNum = Math.floor(Math.random() * 3);
@@ -15,53 +17,52 @@ function computerPlay() {
 }
 
 function gameRound(playerHand) {
-	// need to change all alerts for changes in html w/ js
 	let computerHand = computerPlay();
+	pcHand.textContent = computerHand;
 	if (playerHand.length == computerHand.length) {
-		alert("draw again");
 		draw++;
+		roundWinnerDisplay.textContent = "draw";
 	} else if (
 		playerHand.length > computerHand.length &&
 		computerHand.length !== 4
 	) {
 		playerWins++;
-		alert("You win!!, scissors beat paper");
+		roundWinnerDisplay.textContent = "You win!!, scissors beat paper";
 	} else if (computerHand.length === 4 && playerHand.length != 5) {
 		computerWins++;
-		alert("You lose!!, rock beats scissors");
+		roundWinnerDisplay.textContent = "You lose!!, rock beats scissors";
 	} else if (playerHand.length === 5 && computerHand.length !== 8) {
 		playerWins++;
-		alert("You win!!, paper beat rock");
+		roundWinnerDisplay.textContent = "You win!!, paper beat rock";
 	} else if (playerHand.length === 5 && computerHand.length === 8) {
 		computerWins++;
-		alert("You lose!!, scissors beat paper");
+		roundWinnerDisplay.textContent = "You lose!!, scissors beat paper";
 	} else if (playerHand.length === 4 && computerHand.length === 8) {
 		playerWins++;
-		alert("You win!!, rock beats scissors");
+		roundWinnerDisplay.textContent = "You win!!, rock beats scissors";
 	} else if (playerHand.length === 4 && computerHand.length !== 8) {
 		computerWins++;
-		alert("You lose!!, paper beats rock");
+		roundWinnerDisplay.textContent = "You lose!!, paper beats rock";
 	} else {
-		alert("Sorry, I don't know what's wrong");
+		roundWinnerDisplay.textContent = "Sorry, I don't know what's wrong";
 	}
 }
 
 function whoWins() {
+	roundDisplay.textContent = draw + playerWins + computerWins;
+
 	if (playerWins + computerWins + draw === 5) {
 		if (playerWins == computerWins) {
 			draw = 0;
 			computerWins = 0;
 			playerWins = 0;
-			return alert("WE HAVE A TIE");
+			return (winnerDisplay.textContent = "WE HAVE A TIE");
 		} else {
-			draw = 0;
-			computerWins = 0;
-			playerWins = 0;
 			return playerWins > computerWins
-				? alert("You Win The Game")
-				: alert("Computer Wins The Game");
+				? (winnerDisplay.textContent = "You Win The Game")
+				: (winnerDisplay.textContent = "Computer Wins The Game");
 		}
-	}
+	} 
 }
 
 function gameBtns() {
@@ -87,6 +88,7 @@ function gameBtns() {
 
 startBtn.addEventListener("click", () => {
 	startBtn.remove();
+	roundDisplay.textContent = draw;
 	btnContainer.innerHTML =
 		'<button class="player-btn" id="rock-btn">Rock</button> <button class="player-btn" id="paper-btn">Paper</button> <button class="player-btn" id="scissors-btn">Scissors</button>';
 	gameBtns();
